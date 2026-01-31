@@ -8,7 +8,6 @@ const RequestSchema = new mongoose.Schema({
     serviceType: {
         type: String,
         required: true,
-        enum: ["Graphic Design", "Video Editing", "3D Modeling"],
     },
     budget: {
         type: String,
