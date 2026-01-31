@@ -11,7 +11,8 @@ import {
     ArrowRight,
     Menu,
     X,
-    Layers
+    Layers,
+    MessageSquare,
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -24,6 +25,7 @@ export default function AdminSidebar({ activeSection, setActiveSection, onLogout
     const [isOpen, setIsOpen] = useState(false);
     const menuItems = [
         { id: "leads", label: "Leads", icon: Inbox },
+        { id: "requests", label: "Requests", icon: MessageSquare }, // Added Requests
         { id: "projects", label: "Projects", icon: Briefcase },
         { id: "packages", label: "Packages", icon: Layers },
         { id: "settings", label: "Settings", icon: Settings },
