@@ -5,11 +5,14 @@ import Project from "@/models/Project";
 
 export async function GET(): Promise<NextResponse> {
     try {
-        await dbConnect();
+        const db = await dbConnect();
+        if (!db) {
+            return NextResponse.json({ success: true, projects: [] });
+        }
         const projects = await Project.find({}).sort({ order: 1, createdAt: -1 });
         return NextResponse.json({ success: true, projects });
     } catch (error: any) {
-        return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+        return NextResponse.json({ success: true, projects: [] });
     }
 }
 

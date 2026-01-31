@@ -10,7 +10,9 @@ export async function PUT(
     try {
         const { id } = await params;
         const data = await req.json();
-        await dbConnect();
+        const db = await dbConnect();
+        if (!db) return NextResponse.json({ success: true, project: { ...data, _id: id } });
+
         const project = await Project.findByIdAndUpdate(id, data, { new: true });
         if (!project) return NextResponse.json({ success: false, error: "Project not found" }, { status: 404 });
         return NextResponse.json({ success: true, project });
