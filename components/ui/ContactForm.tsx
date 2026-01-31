@@ -28,6 +28,17 @@ export const ContactForm = () => {
         }
     }, [isDrawerOpen]);
 
+    React.useEffect(() => {
+        const handlePackageSelect = (e: CustomEvent) => {
+            setFormData(prev => ({ ...prev, pricingTier: e.detail }));
+            // If on mobile/drawer mode, maybe we should open the drawer?
+            // For now, just setting state is enough as the deskop form will update, 
+            // and if proper scroll happens, user sees it.
+        };
+        window.addEventListener('selectPackage', handlePackageSelect as any);
+        return () => window.removeEventListener('selectPackage', handlePackageSelect as any);
+    }, []);
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 

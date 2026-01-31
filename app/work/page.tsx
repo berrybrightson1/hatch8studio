@@ -100,7 +100,7 @@ const ProjectCard = ({ project, onClick }: { project: Project; onClick: () => vo
         <motion.div
             layoutId={`project-${project.id}`}
             onClick={onClick}
-            className="group cursor-pointer"
+            className="group cursor-pointer mb-8 break-inside-avoid"
             onMouseEnter={() => {
                 if (videoRef.current) {
                     playPromiseRef.current = videoRef.current.play();
@@ -121,11 +121,11 @@ const ProjectCard = ({ project, onClick }: { project: Project; onClick: () => vo
                 }
             }}
         >
-            <div className="aspect-[4/5] bg-gray-100 rounded-2xl overflow-hidden mb-6 relative border border-black/5 group-hover:border-[#E8942A] transition-colors duration-500">
+            <div className="w-full relative group-hover:border-[#E8942A] transition-colors duration-500">
                 <img
                     src={project.thumbnail}
                     alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 group-hover:brightness-50"
+                    className="w-full h-auto block object-cover transition-transform duration-700 group-hover:brightness-50 rounded-2xl"
                 />
 
                 {project.videoPreview && (
@@ -135,7 +135,7 @@ const ProjectCard = ({ project, onClick }: { project: Project; onClick: () => vo
                         muted
                         loop
                         playsInline
-                        className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                        className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
                     />
                 )}
 
@@ -144,14 +144,6 @@ const ProjectCard = ({ project, onClick }: { project: Project; onClick: () => vo
                         View
                     </div>
                 </div>
-            </div>
-
-            <div className="flex justify-between items-start px-2">
-                <div>
-                    <p className="text-[8px] font-black uppercase tracking-[0.2em] text-[#E8942A] mb-1">{project.category}</p>
-                    <h3 className="text-lg font-black uppercase tracking-tighter">{project.title}</h3>
-                </div>
-                <p className="text-[10px] font-black opacity-20">{project.year}</p>
             </div>
         </motion.div>
     );
@@ -181,7 +173,7 @@ const ProjectPreview = ({ project, onClose, onNext }: { project: Project; onClos
                 </button>
 
                 {/* Media Section */}
-                <div className="w-full h-[65vh] md:h-[75vh] lg:h-[80vh] bg-gray-50 flex items-center justify-center relative group">
+                <div className="w-full bg-gray-50 flex items-center justify-center relative group">
                     {project.videoPreview ? (
                         <video
                             key={project.videoPreview}
@@ -190,13 +182,13 @@ const ProjectPreview = ({ project, onClose, onNext }: { project: Project; onClos
                             muted
                             loop
                             playsInline
-                            className="w-full h-full object-cover"
+                            className="w-full h-auto max-h-[85vh] object-contain"
                         />
                     ) : (
                         <img
                             src={project.thumbnail}
                             alt={project.title}
-                            className="w-full h-full object-cover"
+                            className="w-full h-auto max-h-[85vh] object-contain"
                         />
                     )}
                 </div>

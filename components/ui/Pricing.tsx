@@ -32,25 +32,7 @@ const DEFAULT_PACKAGES = [
 ];
 
 export const Pricing = () => {
-    const [packages, setPackages] = React.useState<any[]>(DEFAULT_PACKAGES);
-    const [loading, setLoading] = React.useState(true);
-
-    React.useEffect(() => {
-        const fetchPackages = async () => {
-            try {
-                const res = await fetch("/api/packages");
-                const data = await res.json();
-                if (data.success && data.packages.length > 0) {
-                    setPackages(data.packages);
-                }
-            } catch (error) {
-                console.error("Failed to fetch packages:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchPackages();
-    }, []);
+    const packages = DEFAULT_PACKAGES;
     return (
         <section id="pricing" className="py-32 px-8 md:px-12 bg-white">
             <div className="max-w-[1800px] mx-auto">
@@ -63,11 +45,7 @@ export const Pricing = () => {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-black border-2 border-black min-h-[400px]">
-                    {loading ? (
-                        <div className="col-span-full flex items-center justify-center bg-white p-24">
-                            <div className="w-12 h-12 border-4 border-black border-t-transparent rounded-full animate-spin" />
-                        </div>
-                    ) : packages.length === 0 ? (
+                    {packages.length === 0 ? (
                         <div className="col-span-full flex flex-col items-center justify-center bg-white p-24 text-center">
                             <p className="text-[10px] font-black uppercase tracking-[0.5em] opacity-40">Creative plans coming soon.</p>
                         </div>
@@ -78,8 +56,8 @@ export const Pricing = () => {
                                     <span className="inline-block px-3 py-1 border border-black text-[9px] font-black uppercase tracking-[0.3em] mb-6">{plan.tag || "Creative"}</span>
                                     <h3 className="text-4xl md:text-5xl font-black uppercase tracking-tighter mb-4">{plan.name}</h3>
                                     <div className="flex items-baseline gap-2">
-                                        <span className="text-4xl font-black">{plan.price}</span>
-                                        <span className="text-gray-400 font-black uppercase text-[10px] tracking-widest">/month</span>
+                                        <span className="text-4xl font-black">Reach Out</span>
+                                        {/* <span className="text-gray-400 font-black uppercase text-[10px] tracking-widest">/month</span> */}
                                     </div>
                                 </div>
 
@@ -95,6 +73,7 @@ export const Pricing = () => {
                                 <MinimalButton
                                     className="w-full py-6 text-[10px] font-black uppercase tracking-[0.4em] bg-black text-white hover:bg-[#E8942A] hover:text-black transition-all border-none rounded-xl"
                                     onClick={() => {
+                                        window.dispatchEvent(new CustomEvent('selectPackage', { detail: plan.name }));
                                         document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                                     }}
                                 >
