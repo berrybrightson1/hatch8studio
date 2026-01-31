@@ -5,6 +5,7 @@ import { MinimalButton } from "./MinimalButton";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { X, ChevronDown, ArrowRight, MessageSquare, Mail, Phone, Calendar } from "lucide-react";
+import { showToast } from "@/components/ui/Toaster";
 
 export const ContactForm = () => {
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -27,48 +28,41 @@ export const ContactForm = () => {
         }
     }, [isDrawerOpen]);
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Basic Validation
+        if (!formData.brandName || !formData.contactName || !formData.email || !formData.whatsapp || !formData.projectDescription) {
+            alert("Please fill in all required fields.");
+            return;
+        }
+
         setStatus("loading");
 
-        try {
-            // Mapping Premium Form Data -> Request Model Structure
-            const requestPayload = {
-                businessName: formData.brandName,
-                serviceType: formData.serviceInterest,
-                budget: formData.pricingTier,
-                message: `${formData.projectDescription}\n\n-- Contact Details --\nName: ${formData.contactName}\nEmail: ${formData.email}\nWhatsApp: ${formData.whatsapp}`
-            };
+        // Construct WhatsApp Message
+        const message = `*NEW INQUIRY via Website*
+        
+*Brand:* ${formData.brandName}
+*Contact:* ${formData.contactName}
+*Email:* ${formData.email}
+*Service:* ${formData.serviceInterest}
+*Tier:* ${formData.pricingTier}
 
-            const res = await fetch("/api/request", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(requestPayload),
-            });
+*Brief:*
+${formData.projectDescription}`;
 
-            if (res.ok) {
-                setStatus("success");
-                // WhatsApp Redirection Logic
-                const message = `Hello Hatch8 Studio! I'm interested in the ${formData.serviceInterest} (${formData.pricingTier} Tier). 
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/233540958230?text=${encodedMessage}`;
 
-Brand: ${formData.brandName}
-Contact: ${formData.contactName}
-Brief: ${formData.projectDescription}`;
+        // Show user feedback
+        showToast("Opening WhatsApp...", "success"); // Assuming Toaster is available, otherwise alert
 
-                const encodedMessage = encodeURIComponent(message);
-                const whatsappUrl = `https://wa.me/233540958230?text=${encodedMessage}`;
-
-                // Small delay to let user see success state before redirect
-                setTimeout(() => {
-                    window.open(whatsappUrl, '_blank');
-                    setStatus("idle");
-                }, 1500);
-            } else {
-                setStatus("error");
-            }
-        } catch (error) {
-            setStatus("error");
-        }
+        setTimeout(() => {
+            window.open(whatsappUrl, '_blank');
+            setStatus("success");
+            // Reset form or just show success state? 
+            // User asked for "Show a simple toast/alert: Opening WhatsApp..."
+        }, 1000);
     };
 
     if (status === "success") {

@@ -3,17 +3,18 @@
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/ui/Navbar";
-import { Project, projects } from "@/lib/projects";
+import { Project, PROJECTS } from "@/data/projects";
 import { X, ArrowRight } from "lucide-react";
 
 export default function WorkPage() {
+    const [activeCategory, setActiveCategory] = useState("All");
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
     const handleNext = () => {
         if (!selectedProject) return;
-        const currentIndex = projects.findIndex(p => p.id === selectedProject.id);
-        const nextIndex = (currentIndex + 1) % projects.length;
-        setSelectedProject(projects[nextIndex]);
+        const currentIndex = PROJECTS.findIndex(p => p.id === selectedProject.id);
+        const nextIndex = (currentIndex + 1) % PROJECTS.length;
+        setSelectedProject(PROJECTS[nextIndex]);
     };
 
     React.useEffect(() => {
@@ -24,13 +25,20 @@ export default function WorkPage() {
         }
     }, [selectedProject]);
 
+    // Extract unique categories
+    const categories = ["All", ...Array.from(new Set(PROJECTS.map((p) => p.category)))];
+
+    const filteredProjects = activeCategory === "All"
+        ? PROJECTS
+        : PROJECTS.filter((p) => p.category === activeCategory);
+
     return (
         <main className="min-h-screen bg-white">
             <Navbar />
 
             <section className="pt-40 pb-24 px-8 md:px-12">
                 <div className="max-w-[1800px] mx-auto">
-                    <div className="border-b-2 border-black pb-8 mb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
+                    <div className="border-b-2 border-black pb-8 mb-12 flex flex-col md:flex-row md:items-end justify-between gap-8">
                         <div>
                             <p className="text-[10px] font-black uppercase tracking-[0.5em] text-[#E8942A] mb-4">Portfolio</p>
                             <h1 className="text-[clamp(3rem,8vw,10rem)] font-black uppercase leading-[0.85] tracking-[-0.08em]">Projects <br /> / Archive</h1>
@@ -42,8 +50,24 @@ export default function WorkPage() {
                         </div>
                     </div>
 
+                    {/* Category Filter Bar */}
+                    <div className="flex flex-wrap gap-4 mb-16">
+                        {categories.map((cat) => (
+                            <button
+                                key={cat}
+                                onClick={() => setActiveCategory(cat)}
+                                className={`px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-[0.2em] border-2 transition-all ${activeCategory === cat
+                                    ? "bg-black text-white border-black"
+                                    : "bg-transparent text-black border-black/10 hover:border-black"
+                                    }`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
+                    </div>
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                        {projects.map((project) => (
+                        {filteredProjects.map((project) => (
                             <ProjectCard
                                 key={project.id}
                                 project={project}

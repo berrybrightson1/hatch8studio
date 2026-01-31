@@ -5,9 +5,9 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
-import { Project, projects } from "@/lib/projects";
+import { Project, PROJECTS } from "@/data/projects";
 
-const items: Project[] = projects.slice(0, 4);
+const items: Project[] = PROJECTS.slice(0, 4);
 
 export const WorkGrid = () => {
     return (
