@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: #ffffff;
+    --foreground: #111111;
+    --accent: #E5FF00;
+    /* Electric Lime */
+  }
+
+  body {
+    @apply bg-white text-[#111111] selection:bg-[#111111] selection:text-white;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply tracking-tighter font-black uppercase;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .masonry-grid {
+    column-count: 1;
+    column-gap: 2rem;
+  }
+
+  @screen md {
+    .masonry-grid {
+      column-count: 2;
+    }
+  }
+
+  @screen lg {
+    .masonry-grid {
+      column-count: 3;
+    }
+  }
+
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 2rem;
+  }
+}

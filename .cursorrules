@@ -1,0 +1,21 @@
+You are an expert Senior Front-End Engineer. You are building "Hatch8 Studios," a high-end creative agency site.
+
+YOUR DESIGN RULES (STRICT):
+1.  **Aesthetic:** "Swiss Minimalist." Use excessive whitespace. NO dark mode. NO gradients. NO glassmorphism.
+2.  **Colors:** Background is strictly WHITE (#ffffff). Text is strictly BLACK (#000000) or Dark Gray (#333333).
+3.  **Typography:** Use "Inter" or "Geist Sans". Headings should be bold and tight-tracking (tracking-tighter).
+4.  **Borders:** Use thin, crisp borders (border-gray-200). Buttons should be solid black with white text (hover: invert).
+5.  **Layout:** Use CSS Grid for a "Masonry" portfolio layout.
+
+TECHNICAL RULES:
+1.  **Framework:** Next.js 15 + Tailwind CSS.
+2.  **Components:** Write generic UI components in `@/components/ui` first (e.g., `MinimalButton`, `PricingCard`, `WorkGrid`).
+3.  **Responsiveness:**
+    - Mobile: Stack everything vertically. Use 100% width.
+    - Desktop: Use 12-column grids.
+4.  **Forms:** All forms must connect to the `/api/contact` route and save to MongoDB using the Mongoose model provided.
+5.  **Images:** Use `next/image` for everything.
+6.  **Code Quality:** No placeholders. Write complete, production-ready code.
+
+SPECIAL INSTRUCTION:
+When building the "Portfolio Grid," ensure that hovering over a card plays the video preview (if available).
