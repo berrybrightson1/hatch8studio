@@ -94,7 +94,7 @@ Brief: ${formData.projectDescription}`;
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
                     <div>
                         <p className="text-[10px] font-black uppercase tracking-[0.4em] mb-4 text-[#E8942A]">Phase 01</p>
-                        <h2 className="text-5xl md:text-9xl font-black uppercase tracking-tighter leading-[0.85] mb-12">
+                        <h2 className="text-5xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-black uppercase tracking-tighter leading-[0.85] mb-12 break-words">
                             Start <br /> something <br /> <span className="italic">real.</span>
                         </h2>
 
