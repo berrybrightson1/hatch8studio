@@ -34,11 +34,16 @@ export const Navbar = () => {
         <>
             <nav className={cn(
                 "fixed top-0 left-0 right-0 z-[100] transition-all duration-300",
-                scrolled ? "bg-white/80 backdrop-blur-md py-4 border-b border-black/5" : "bg-white py-8"
+                scrolled ? "bg-black/80 backdrop-blur-md py-4 border-b border-white/5" : "bg-transparent py-8"
             )}>
                 <div className="max-w-[1800px] mx-auto px-8 md:px-12 flex items-center justify-between">
-                    <Link href="/" className="text-2xl md:text-3xl font-black tracking-[-0.08em] hover:opacity-70 transition-opacity">
-                        HATCH<span className="text-[#E8942A]">8STUDIOS</span>
+                    <Link href="/" className="hover:opacity-70 transition-opacity flex items-center gap-3">
+                        <img
+                            src="/Logo/Hatch8Studio-logo-7.png"
+                            alt="Hatch8 Studios Logo"
+                            className="h-8 md:h-12 w-auto"
+                        />
+                        <span className="text-xl md:text-2xl font-black tracking-[-0.05em] text-white">HATCH8STUDIO</span>
                     </Link>
 
                     {/* Desktop Links */}
@@ -47,7 +52,7 @@ export const Navbar = () => {
                             <Link
                                 key={link.name}
                                 href={link.href}
-                                className="text-[10px] font-black uppercase tracking-[0.3em] hover:text-[#E8942A] transition-colors"
+                                className="text-[10px] font-black uppercase tracking-[0.3em] text-white/70 hover:text-[#E8942A] transition-colors"
                             >
                                 {link.name}
                             </Link>
@@ -66,12 +71,11 @@ export const Navbar = () => {
                         {/* Mobile Toggle */}
                         {!isOpen && (
                             <button
-                                className="md:hidden flex items-center gap-2 p-2 text-black"
+                                className="md:hidden flex items-center p-2 text-white"
                                 onClick={() => setIsOpen(true)}
                                 aria-label="Open menu"
                             >
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em]">Menu</span>
-                                <Menu size={20} />
+                                <Menu size={24} />
                             </button>
                         )}
                     </div>
@@ -80,20 +84,25 @@ export const Navbar = () => {
 
             {/* Mobile Menu Overlay */}
             <div className={cn(
-                "fixed inset-0 w-full h-[100dvh] bg-white z-[200] flex flex-col transition-all duration-500 ease-in-out px-8 py-12",
+                "fixed inset-0 w-full h-[100dvh] bg-[#0a0a0a] z-[200] flex flex-col transition-all duration-500 ease-in-out px-8 py-12",
                 isOpen ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-full"
             )}>
                 {/* Mobile Menu Header */}
                 <div className="flex items-center justify-between mb-20">
-                    <Link href="/" onClick={() => setIsOpen(false)} className="text-2xl font-black tracking-[-0.08em]">
-                        HATCH<span className="text-[#E8942A]">8STUDIOS</span>
+                    <Link href="/" onClick={() => setIsOpen(false)} className="hover:opacity-70 transition-opacity flex items-center gap-3">
+                        <img
+                            src="/Logo/Hatch8Studio-logo-7.png"
+                            alt="Hatch8 Studios Logo"
+                            className="h-10 w-auto"
+                        />
+                        <span className="text-2xl font-black tracking-[-0.05em] text-white">HATCH8STUDIO</span>
                     </Link>
                     <button
-                        className="flex items-center gap-2 text-black"
+                        className="flex items-center p-2 text-white"
                         onClick={() => setIsOpen(false)}
+                        aria-label="Close menu"
                     >
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em]">Close</span>
-                        <X size={20} />
+                        <X size={24} />
                     </button>
                 </div>
 
@@ -104,7 +113,7 @@ export const Navbar = () => {
                             key={link.name}
                             href={link.href}
                             onClick={() => setIsOpen(false)}
-                            className="text-4xl font-black uppercase tracking-tighter hover:text-[#E8942A] transition-all"
+                            className="text-4xl font-black uppercase tracking-tighter text-white hover:text-[#E8942A] transition-all"
                         >
                             {link.name}
                         </Link>
