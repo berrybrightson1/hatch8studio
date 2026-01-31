@@ -1,8 +1,9 @@
+export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/mongodb";
 import Project from "@/models/Project";
 
-export async function GET() {
+export async function GET(): Promise<NextResponse> {
     try {
         await dbConnect();
         const projects = await Project.find({}).sort({ order: 1, createdAt: -1 });
@@ -12,7 +13,7 @@ export async function GET() {
     }
 }
 
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<NextResponse> {
     try {
         const data = await req.json();
         await dbConnect();

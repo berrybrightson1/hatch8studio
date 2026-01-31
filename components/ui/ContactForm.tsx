@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { MinimalButton } from "./MinimalButton";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { X, ChevronDown, ArrowRight } from "lucide-react";
+import { X, ChevronDown, ArrowRight, MessageSquare, Mail, Phone, Calendar } from "lucide-react";
 
 export const ContactForm = () => {
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -38,8 +38,25 @@ export const ContactForm = () => {
                 body: JSON.stringify(formData),
             });
 
-            if (res.ok) setStatus("success");
-            else setStatus("error");
+            if (res.ok) {
+                setStatus("success");
+                // WhatsApp Redirection Logic
+                const message = `Hello Hatch8 Studio! I'm interested in the ${formData.serviceInterest} (${formData.pricingTier} Tier). 
+
+Brand: ${formData.brandName}
+Contact: ${formData.contactName}
+Brief: ${formData.projectDescription}`;
+
+                const encodedMessage = encodeURIComponent(message);
+                const whatsappUrl = `https://wa.me/233540958230?text=${encodedMessage}`;
+
+                // Small delay to let user see success state before redirect
+                setTimeout(() => {
+                    window.open(whatsappUrl, '_blank');
+                }, 1500);
+            } else {
+                setStatus("error");
+            }
         } catch (error) {
             setStatus("error");
         }
@@ -72,14 +89,55 @@ export const ContactForm = () => {
                             Start <br /> something <br /> <span className="italic">real.</span>
                         </h2>
 
-                        <div className="space-y-12">
+                        <div className="space-y-16">
                             <div>
-                                <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-4 opacity-30">Our Office</p>
+                                <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-6 opacity-30">Our Office</p>
                                 <p className="text-xl font-black uppercase tracking-tight">Accra, Ghana / Remote</p>
                             </div>
-                            <div>
-                                <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-4 opacity-30">Say Hello</p>
-                                <p className="text-xl font-black uppercase tracking-tight underline cursor-pointer hover:opacity-50 transition-opacity">hello@hatch8.studio</p>
+
+                            <div className="flex flex-col gap-6">
+                                <p className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30">Get in touch</p>
+
+                                <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-4">
+                                    <a
+                                        href="https://wa.me/233540958230"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex-1 flex items-center justify-between p-6 bg-[#25D366] text-white hover:bg-[#128C7E] transition-all group rounded-2xl shadow-xl shadow-[#25D366]/20 border-2 border-[#25D366]"
+                                    >
+                                        <div className="flex items-center gap-4">
+                                            <div className="p-3 bg-white/20 group-hover:bg-white/30 rounded-xl transition-colors text-white">
+                                                <MessageSquare size={20} fill="currentColor" />
+                                            </div>
+                                            <div className="text-left">
+                                                <p className="text-[8px] font-black uppercase tracking-[0.2em] text-white/70">Instant Action</p>
+                                                <p className="text-sm font-black uppercase tracking-widest leading-none mt-1">WhatsApp</p>
+                                            </div>
+                                        </div>
+                                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform opacity-0 group-hover:opacity-100" />
+                                    </a>
+
+                                    <a
+                                        href="mailto:hatch8studio@gmail.com"
+                                        className="flex-1 flex items-center justify-between p-6 border-2 border-black/5 hover:border-black transition-all group rounded-2xl"
+                                    >
+                                        <div className="flex items-center gap-4">
+                                            <div className="p-3 bg-black/5 group-hover:bg-black/10 rounded-xl transition-colors">
+                                                <Mail size={20} />
+                                            </div>
+                                            <div className="text-left">
+                                                <p className="text-[8px] font-black uppercase tracking-[0.2em] opacity-50">Formal Query</p>
+                                                <p className="text-sm font-black uppercase tracking-widest leading-none mt-1">Email Us</p>
+                                            </div>
+                                        </div>
+                                        <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform opacity-0 group-hover:opacity-100" />
+                                    </a>
+                                </div>
+
+                                <div className="flex items-center gap-4 p-6 bg-gray-50 rounded-2xl border-2 border-dashed border-black/5">
+                                    <Phone size={16} className="opacity-30" />
+                                    <p className="text-[10px] font-black uppercase tracking-widest">Hotline: 0540958230</p>
+                                </div>
                             </div>
                         </div>
 

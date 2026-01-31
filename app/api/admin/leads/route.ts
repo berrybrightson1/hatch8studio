@@ -1,8 +1,9 @@
+export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/mongodb";
 import Lead from "@/models/Lead";
 
-export async function GET() {
+export async function GET(): Promise<NextResponse> {
     try {
         await dbConnect();
         const leads = await Lead.find({}).sort({ createdAt: -1 });

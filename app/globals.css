@@ -34,13 +34,13 @@
     column-gap: 2rem;
   }
 
-  @screen md {
+  @media (min-width: 768px) {
     .masonry-grid {
       column-count: 2;
     }
   }
 
-  @screen lg {
+  @media (min-width: 1024px) {
     .masonry-grid {
       column-count: 3;
     }

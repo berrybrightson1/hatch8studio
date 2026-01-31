@@ -10,7 +10,8 @@ import {
     LogOut,
     ArrowRight,
     Menu,
-    X
+    X,
+    Layers
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -24,6 +25,7 @@ export default function AdminSidebar({ activeSection, setActiveSection, onLogout
     const menuItems = [
         { id: "leads", label: "Leads", icon: Inbox },
         { id: "projects", label: "Projects", icon: Briefcase },
+        { id: "packages", label: "Packages", icon: Layers },
         { id: "settings", label: "Settings", icon: Settings },
     ];
 

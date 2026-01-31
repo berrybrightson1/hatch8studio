@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import LeadManager from "@/components/admin/LeadManager";
 import ProjectManager from "@/components/admin/ProjectManager";
+import PackageManager from "@/components/admin/PackageManager";
 import Toaster from "@/components/ui/Toaster";
 
 export default function AdminDashboard() {
@@ -54,6 +55,7 @@ export default function AdminDashboard() {
                         >
                             {activeSection === "leads" && <LeadManager />}
                             {activeSection === "projects" && <ProjectManager />}
+                            {activeSection === "packages" && <PackageManager />}
                             {activeSection === "settings" && (
                                 <div className="h-full flex flex-col items-center justify-center border-2 border-dashed border-black/5 rounded-3xl md:rounded-[3rem] p-8 text-center">
                                     <h2 className="text-2xl md:text-4xl font-black uppercase tracking-tighter opacity-10">Console v1.0</h2>

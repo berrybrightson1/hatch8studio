@@ -1,8 +1,9 @@
+export const dynamic = 'force-dynamic';
 import { NextResponse } from "next/server";
 import dbConnect from "@/lib/mongodb";
 import Lead from "@/models/Lead";
 
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<NextResponse> {
     try {
         const data = await req.json();
         await dbConnect();
